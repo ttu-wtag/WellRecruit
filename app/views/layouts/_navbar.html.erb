@@ -13,15 +13,41 @@
           <a class="nav-link" href="#">Jobs</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
+      <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
         <% if user_signed_in? %>
-          <%= link_to "Edit Profile", edit_user_registration_path, method: :get, class: "btn btn-outline-dark" %> &nbsp;
-          <%= button_to "Log out", destroy_user_session_path, method: :get, class: "btn btn-outline-dark" %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <% if current_user.avatar.attached? %>
+                <%= image_tag url_for(current_user.avatar), style: "border-radius: 50%; height: 40px; width: 40px" %>
+              <% else %>
+                <b>hello <%= current_user.name %></b>
+              <% end %>
+            </a>
+            <ul class="dropdown-menu">
+              <%= render 'layouts/role_based_dropdown' %>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= link_to "Edit Profile", edit_user_registration_path, method: :get, class: "dropdown-item" %></li>
+              <li><%= button_to "Log out", destroy_user_session_path, method: :get, class: "dropdown-item" %></li>
+            </ul>
+          </li>
         <% else %>
-          <%= link_to "Sign in", new_user_session_path, method: :get, class: "btn btn-outline-dark" %>&nbsp;
-          <%= link_to "Sign up", new_user_registration_path, method: :get, class: "btn btn-outline-success" %>
+          <li class="nav-item">
+            <%= link_to "Sign in", user_session_path, method: :get, class: "btn btn-outline-primary" %>
+          </li> &nbsp;
+          <li class="nav-item">
+            <%= link_to "Sign up", new_user_registration_path, method: :get, class: "btn btn-outline-secondary" %>
+          </li>
         <% end %>
-      </form>
+      </ul>
+<!--      <form class="d-flex" role="search">-->
+        <%# if user_signed_in? %>
+<!--          <%#= link_to "Edit Profile", edit_user_registration_path, method: :get, class: "btn btn-outline-dark" %> &nbsp;-->
+          <%#= button_to "Log out", destroy_user_session_path, method: :get, class: "btn btn-outline-dark" %>
+        <%# else %>
+<!--          <%#= link_to "Sign in", new_user_session_path, method: :get, class: "btn btn-outline-dark" %>&nbsp;-->
+          <%#= link_to "Sign up", new_user_registration_path, method: :get, class: "btn btn-outline-success" %>
+        <%# end %>
+<!--      </form>-->
     </div>
   </div>
 </nav>
