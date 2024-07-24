@@ -1,0 +1,57 @@
+<%= form_with(model: job) do |form| %>
+  <% if job.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
+
+      <ul>
+        <% job.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :overview, style: "display: block" %>
+    <%= form.text_area :overview %>
+  </div>
+
+  <div>
+    <%= form.label :responsibilities, style: "display: block" %>
+    <%= form.text_area :responsibilities %>
+  </div>
+
+  <div>
+    <%= form.label :requirements, style: "display: block" %>
+    <%= form.text_area :requirements %>
+  </div>
+
+  <div>
+    <%= form.label :benifits, style: "display: block" %>
+    <%= form.text_area :benifits %>
+  </div>
+
+  <div>
+    <%= form.label :location, style: "display: block" %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div>
+    <%= form.label :deadline, style: "display: block" %>
+    <%= form.datetime_field :deadline %>
+  </div>
+
+  <div>
+    <%= form.label :salary_range, style: "display: block" %>
+    <%= form.text_field :salary_range %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
