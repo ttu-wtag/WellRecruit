@@ -9,5 +9,4 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true, length: { minimum: 3, maximum: 30 }
   validates :role, presence: true
-  validates :password, presence: true, length: { minimum: 6 }
 end
