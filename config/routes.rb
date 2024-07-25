@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
-  resources :jobs
+  resources :questions
+  #resources :assessments
+  resources :jobs do
+    resources :assessments
+  end
   root 'home#index'
 end
