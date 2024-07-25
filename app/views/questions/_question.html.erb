@@ -8,5 +8,16 @@
     <strong>Assessment:</strong>
     <%= question.assessment_id %>
   </p>
-
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>question.statement</p>
+      <footer class="blockquote-footer">
+        <ol type='a'>
+          <% options(question).each do |opt| %>
+            <li><%= opt.option %></li>
+          <% end %>
+        </ol>
+      </footer>
+    </blockquote>
+  </div>
 </div>
