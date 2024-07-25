@@ -1,4 +1,5 @@
 class AssessmentsController < ApplicationController
+  before_action :set_job
   before_action :set_assessment, only: %i[ show edit update destroy ]
 
   # GET /assessments or /assessments.json
@@ -12,7 +13,8 @@ class AssessmentsController < ApplicationController
 
   # GET /assessments/new
   def new
-    @assessment = Assessment.new
+    #@assessment = Assessment.new
+    @assessment = @job.build_assessment
   end
 
   # GET /assessments/1/edit
@@ -21,7 +23,7 @@ class AssessmentsController < ApplicationController
 
   # POST /assessments or /assessments.json
   def create
-    @assessment = Assessment.new(assessment_params)
+    @assessment = @job.build_assessment(assessment_params)
 
     respond_to do |format|
       if @assessment.save
@@ -66,5 +68,9 @@ class AssessmentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def assessment_params
       params.require(:assessment).permit(:title, :starting_time, :ending_time, :candidate_selection, :job_id)
+    end
+
+    def set_job
+      @job = Job.find_by(id: params[:job_id])
     end
 end

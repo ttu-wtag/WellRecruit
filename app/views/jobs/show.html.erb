@@ -4,7 +4,11 @@
 
 <div>
   <%= link_to "Edit this job", edit_job_path(@job) %> |
-  <%= link_to "Back to jobs", jobs_path %>
-
+  <%= link_to "Back to jobs", jobs_path %> |
+  <% if @job.assessment.nil? %>
+    <%= link_to "Add Assessment", new_job_assessment_path(@job) %>
+  <% else %>
+    <%= link_to "Show Assessment", assessment_path(@job.assessment)%>
+  <% end %>
   <%= button_to "Destroy this job", @job, method: :delete %>
 </div>

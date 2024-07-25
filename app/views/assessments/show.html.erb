@@ -4,7 +4,8 @@
 
 <div>
   <%= link_to "Edit this assessment", edit_assessment_path(@assessment) %> |
-  <%= link_to "Back to assessments", assessments_path %>
+  <%#= link_to "Back to assessments", job_assessments_path(@job) %>
+  <%= link_to "Set Questions", assessment_questions_path(@assessment), method: :get %>
 
   <%= button_to "Destroy this assessment", @assessment, method: :delete %>
 </div>

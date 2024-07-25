@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :questions
-  #resources :assessments
-  resources :jobs do
-    resources :assessments
+  resources :jobs, shallow: true do
+    resources :assessments, shallow: true do
+      resources :questions, shallow: true
+    end
   end
   root 'home#index'
 end

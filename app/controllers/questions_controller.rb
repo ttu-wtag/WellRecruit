@@ -1,9 +1,10 @@
 class QuestionsController < ApplicationController
+  before_action :set_assessment
   before_action :set_question, only: %i[ show edit update destroy ]
 
   # GET /questions or /questions.json
   def index
-    @questions = Question.all
+    @questions = @assessment.questions.all
   end
 
   # GET /questions/1 or /questions/1.json
@@ -12,7 +13,8 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = Question.new
+    @question = @assessment.questions.build
+    4.times { @question.answers.build }
   end
 
   # GET /questions/1/edit
@@ -21,7 +23,7 @@ class QuestionsController < ApplicationController
 
   # POST /questions or /questions.json
   def create
-    @question = Question.new(question_params)
+    @question = @assessment.questions.build(question_params)
 
     respond_to do |format|
       if @question.save
@@ -65,6 +67,10 @@ class QuestionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def question_params
-      params.require(:question).permit(:statement, :assessment_id)
+      params.require(:question).permit(:statement, :assessment_id, answers_attributes: [:option, :correct, :question_id])
+    end
+
+    def set_assessment
+      @assessment = Assessment.find_by(id: params[:assessment_id])
     end
 end
