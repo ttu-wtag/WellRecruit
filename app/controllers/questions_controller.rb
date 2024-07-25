@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to question_url(@question), notice: "Question was successfully updated." }
+        format.html { redirect_to assessment_questions_path(@question.assessment), notice: "Question was successfully updated." }
         format.json { render :show, status: :ok, location: @question }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -68,7 +68,7 @@ class QuestionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def question_params
-      params.require(:question).permit(:statement, :assessment_id, answers_attributes: [:option, :correct, :question_id])
+      params.require(:question).permit(:statement, :assessment_id, answers_attributes: [:id, :option, :correct, :question_id])
     end
 
     def set_assessment

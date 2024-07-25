@@ -6,5 +6,5 @@
 
 <div>
   <%= link_to "Show this question", @question %> |
-  <%= link_to "Back to questions", questions_path %>
+  <%= link_to "Back to questions", assessment_questions_path(@question.assessment) %>
 </div>

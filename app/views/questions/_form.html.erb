@@ -11,21 +11,27 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :statement, style: "display: block" %>
-    <%= form.text_field :statement %>
-  </div>
-  <br>
-  <%= form.fields_for :answers do |answer_fields| %>
-    <div class="field">
-      <%= answer_fields.label :option, "Option" %>
-      <%= answer_fields.text_field :option %>
-      <%= answer_fields.label :correct, "Correct?" %>
-      <%= answer_fields.check_box :correct %>
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content">
+        <%= form.label :statement, style: "display: block" %>&nbsp;
+        <%= form.text_field :statement %>
+      </div>
     </div>
-  <% end %>
-  <br>
-  <div>
-    <%= form.submit %>
+    <div class="card-body">
+      <%= form.fields_for :answers do |answer_fields| %>
+        <div class="field">
+          <%= answer_fields.hidden_field :id %>
+          <%= answer_fields.label :option, "Option" %>
+          <%= answer_fields.text_field :option %>
+          <%= answer_fields.label :correct, "Correct?" %>
+          <%= answer_fields.check_box :correct %>
+        </div>
+      <% end %>
+      <br>
+      <div>
+        <%= form.submit class: "btn btn-primary" %>
+      </div>
+    </div>
   </div>
 <% end %>
