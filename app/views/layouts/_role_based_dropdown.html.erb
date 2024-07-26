@@ -1,0 +1,7 @@
+<% if current_user.admin? %>
+  <%= link_to "Manage Company", "#", method: :get, class: "dropdown-item" %>
+  <%= link_to "Approve Recruiter", "#", method: :get, class: "dropdown-item" %>
+<% elsif current_user.recruiter?%>
+<% elsif current_user.candidate? %>
+<% end %>
+
