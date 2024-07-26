@@ -1,37 +1,17 @@
 <div id="<%= dom_id company %>">
-  <p>
-    <strong>Name:</strong>
-    <%= company.name %>
-  </p>
-
-  <p>
-    <strong>Email:</strong>
-    <%= company.email %>
-  </p>
-
-  <p>
-    <strong>Category:</strong>
-    <%= company.category %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= company.description %>
-  </p>
-
-  <p>
-    <strong>Address:</strong>
-    <%= company.address %>
-  </p>
-
-  <p>
-    <strong>Phone:</strong>
-    <%= company.phone %>
-  </p>
-
-  <p>
-    <strong>Registration no:</strong>
-    <%= company.registration_number %>
-  </p>
-
+  <div class="card-header">
+    <% if company.logo.attached? %>
+      <%= image_tag url_for(company.logo), class: "card-img-top mx-auto d-block", style: "width: auto; height: auto;" %>
+    <% else %>
+      <img src="https://via.placeholder.com/150" class="card-img-top rounded-circle mx-auto d-block" alt="No Logo" style="width: 150px; height: 150px;">
+    <% end %>
+  </div>
+  <div class="card-body text-center">
+    <p class="card-text"><strong>Email:</strong> <%= company.email %></p>
+    <p class="card-text"><strong>Category:</strong> <%= company.category %></p>
+    <p class="card-text"><strong>Description:</strong> <%= company.description %></p>
+    <p class="card-text"><strong>Address:</strong> <%= company.address %></p>
+    <p class="card-text"><strong>Phone:</strong> <%= company.phone %></p>
+    <p class="card-text"><strong>Registration No:</strong> <%= company.registration_number %></p>
+  </div>
 </div>

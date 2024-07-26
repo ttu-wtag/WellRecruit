@@ -3,16 +3,26 @@ class CompaniesController < ApplicationController
 
   # GET /companies or /companies.json
   def index
-    @companies = Company.all
+    @companies = Company.paginate(:page => params[:page], :per_page => 12)
   end
 
   # GET /companies/1 or /companies/1.json
   def show
   end
 
+  def my_company
+    @company = current_user.company
+
+    if @company.present?
+      redirect_to company_path(@company)
+    else
+      redirect_to new_company_path
+    end
+  end
+
   # GET /companies/new
   def new
-    @company = Company.new
+    @company = current_user.build_company
   end
 
   # GET /companies/1/edit
@@ -21,7 +31,7 @@ class CompaniesController < ApplicationController
 
   # POST /companies or /companies.json
   def create
-    @company = Company.new(company_params)
+    @company = current_user.build_company(company_params)
 
     respond_to do |format|
       if @company.save
@@ -65,6 +75,6 @@ class CompaniesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def company_params
-      params.require(:company).permit(:name, :email, :category, :description, :address, :phone, :registration_number)
+      params.require(:company).permit(:name, :email, :category, :description, :address, :phone, :registration_number, :logo)
     end
 end

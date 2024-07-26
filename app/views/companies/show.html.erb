@@ -1,10 +1,12 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @company %>
+<div class="card mb-4">
+  <%= render @company %>
 
-<div>
-  <%= link_to "Edit this company", edit_company_path(@company) %> |
-  <%= link_to "Back to companies", companies_path %>
-
-  <%= button_to "Destroy this company", @company, method: :delete %>
+  <% if current_user == @company.user %>
+    <div class="card-footer d-flex">
+      <%= link_to "Edit", edit_company_path(@company), class:"btn btn-warning btn-sm" %>&nbsp;
+      <%= button_to "Delete", @company, method: :delete, class:"btn btn-danger btn-sm" %>
+    </div>
+  <% end %>
 </div>
