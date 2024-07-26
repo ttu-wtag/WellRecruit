@@ -42,7 +42,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_082705) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-<<<<<<< HEAD
   create_table "companies", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -57,8 +56,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_082705) do
     t.index ["name"], name: "index_companies_on_name", unique: true
   end
 
-=======
->>>>>>> development
   create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "phone"
