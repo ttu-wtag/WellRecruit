@@ -8,6 +8,7 @@ class CreateCompanies < ActiveRecord::Migration[7.1]
       t.text :address
       t.string :phone
       t.string :registration_number, null: false
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

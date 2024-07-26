@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_24_082705) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_25_050053) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,18 +42,45 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_082705) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "companies", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", null: false
-    t.string "category"
-    t.text "description"
-    t.text "address"
-    t.string "phone"
-    t.string "registration_number", null: false
+  create_table "answers", force: :cascade do |t|
+    t.string "option"
+    t.boolean "correct"
+    t.bigint "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_companies_on_email", unique: true
-    t.index ["name"], name: "index_companies_on_name", unique: true
+    t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "assessments", force: :cascade do |t|
+    t.string "title"
+    t.datetime "starting_time"
+    t.datetime "ending_time"
+    t.integer "candidate_selection"
+    t.bigint "job_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_assessments_on_job_id"
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "title"
+    t.text "overview"
+    t.text "responsibilities"
+    t.text "requirements"
+    t.text "benifits"
+    t.string "location"
+    t.datetime "deadline"
+    t.string "salary_range"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "statement"
+    t.bigint "assessment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assessment_id"], name: "index_questions_on_assessment_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -75,4 +102,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_082705) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "assessments", "jobs"
+  add_foreign_key "questions", "assessments"
 end
