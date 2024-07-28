@@ -1,4 +1,4 @@
-// app/javascript/packs/questions.js
+
 document.addEventListener("DOMContentLoaded", function() {
     const addQuestionLink = document.getElementById("add-question");
     const questionsDiv = document.getElementById("questions");
