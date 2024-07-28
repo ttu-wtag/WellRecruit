@@ -6,13 +6,17 @@ class JobsController < ApplicationController
     @jobs = Job.all
   end
 
+  def my_jobs
+    @jobs = Job.where(user_id: current_user.id)
+  end
+
   # GET /jobs/1 or /jobs/1.json
   def show
   end
 
   # GET /jobs/new
   def new
-    @job = Job.new
+    @job = current_user.jobs.build
   end
 
   # GET /jobs/1/edit
@@ -21,7 +25,7 @@ class JobsController < ApplicationController
 
   # POST /jobs or /jobs.json
   def create
-    @job = Job.new(job_params)
+    @job = current_user.jobs.build(job_params)
 
     respond_to do |format|
       if @job.save

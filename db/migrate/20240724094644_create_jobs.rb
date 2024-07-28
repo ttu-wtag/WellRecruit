@@ -9,6 +9,7 @@ class CreateJobs < ActiveRecord::Migration[7.1]
       t.string :location
       t.datetime :deadline
       t.string :salary_range
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

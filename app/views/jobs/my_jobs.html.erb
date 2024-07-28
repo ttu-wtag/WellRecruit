@@ -1,6 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Jobs</h1>
+<div class="d-flex justify-content-between">
+  <h1>My Jobs</h1>
+  <%= link_to "New job opening", new_job_path, class: "btn btn-primary" %>
+</div>
 
 <div id="jobs">
   <% @jobs.each do |job| %>

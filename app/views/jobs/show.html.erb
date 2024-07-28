@@ -1,14 +1,17 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @job %>
-
-<div>
-  <%= link_to "Edit this job", edit_job_path(@job) %> |
-  <%= link_to "Back to jobs", jobs_path %> |
-  <% if @job.assessment.nil? %>
-    <%= link_to "Add Assessment", new_job_assessment_path(@job) %>
-  <% else %>
-    <%= link_to "Show Assessment", assessment_path(@job.assessment)%>
-  <% end %>
-  <%= button_to "Destroy this job", @job, method: :delete %>
+<div class="card">
+  <div class="card-body">
+    <%= render @job %>
+  </div>
+  <div class="card-header d-flex">
+    <%= link_to "Back to jobs", my_jobs_path, class: "btn btn-sm btn-secondary" %>&nbsp;
+    <%= link_to "Edit job", edit_job_path(@job), class: "btn btn-sm btn-warning" %>&nbsp;
+    <% if @job.assessment.nil? %>
+      <%= link_to "Add Assessment", new_job_assessment_path(@job), class: "btn btn-sm btn-primary" %>&nbsp;
+    <% else %>
+      <%= link_to "Show Assessment", assessment_path(@job.assessment), class: "btn btn-sm btn-info" %>&nbsp;
+    <% end %>
+    <%= button_to "Destroy this job", @job, method: :delete, class: "btn btn-sm btn-danger" %>
+  </div>
 </div>
