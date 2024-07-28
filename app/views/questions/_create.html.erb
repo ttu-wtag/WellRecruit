@@ -1,38 +1,11 @@
-<%= form_with(model: [@assessment, @assessment.questions.build]) do |form| %>
-  <% if question.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+<!-- app/views/questions/new.html.erb -->
+<%= form_with model: [@assessment, question], local: true do |f| %>
 
-      <ul>
-        <% question.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <%= form.fields_for :questions do |question_fields| %>
-    <div class="card">
-    <div class="card-header">
-      <div class="d-flex justify-content">
-        <%= question_fields.label :statement, style: "display: block" %>&nbsp;
-        <%= question_fields.text_field :statement %>
-      </div>
-    </div>
-    <div class="card-body">
-      <%= form.fields_for :answers do |answer_fields| %>
-        <div class="field">
-          <%= answer_fields.hidden_field :id %>
-          <%= answer_fields.label :option, "Option" %>
-          <%= answer_fields.text_field :option %>
-          <%= answer_fields.label :correct, "Correct?" %>
-          <%= answer_fields.check_box :correct %>
-        </div>
-      <% end %>
-      <br>
-      <div>
-        <%= form.submit class: "btn btn-primary" %>
-      </div>
-    </div>
+  <div id="questions">
   </div>
-  <% end %>
+  <br>
+  <%= link_to "Add More Question", "#", id: "add-question", class: "btn btn-success" %>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>
+
+<%= javascript_include_tag 'questions' %>

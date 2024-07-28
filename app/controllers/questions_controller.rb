@@ -13,8 +13,10 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @questions = Array.new(3) { @assessment.questions.build }
-    @questions.each { |question| 4.times { question.answers.build } }
+    1.times do
+      @question = @assessment.questions.build
+      4.times { @question.answers.build }
+    end
   end
 
   # GET /questions/1/edit
@@ -23,10 +25,8 @@ class QuestionsController < ApplicationController
 
   # POST /questions or /questions.json
   def create
-    @question = @assessment.questions.build(question_params)
-
     respond_to do |format|
-      if @question.save
+      if @assessment.update(question_create_params)
         format.html { redirect_to assessment_questions_path(@assessment), notice: "Question was successfully created." }
         format.json { render :show, status: :created, location: @question }
       else
@@ -68,9 +68,12 @@ class QuestionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def question_params
-      # params.require(:question).permit(:statement, :assessment_id, answers_attributes: [:id, :option, :correct, :question_id])
-      params.require(:question).permit(questions_attributes: [:statement, :assessment_id,
-                                                               answers_attributes: [:id, :option, :correct, :question_id]])
+      params.require(:question).permit(:statement, :assessment_id, answers_attributes: [:id, :option, :correct, :question_id])
+    end
+
+    def question_create_params
+      params.require(:assessment).permit(questions_attributes: [:statement, :assessment_id,
+                                                              answers_attributes: [:id, :option, :correct, :question_id]])
     end
 
     def set_assessment
