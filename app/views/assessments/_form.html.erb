@@ -11,32 +11,37 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="form-group row">
+    <%= form.label :title, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :title, class: "form-control" %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :starting_time, style: "display: block" %>
-    <%= form.datetime_field :starting_time %>
+  <br>
+  <div class="form-group row">
+    <%= form.label :starting_time, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.datetime_field :starting_time, class: "form-control" %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :ending_time, style: "display: block" %>
-    <%= form.datetime_field :ending_time %>
+  <br>
+  <div class="form-group row">
+    <%= form.label :ending_time, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.datetime_field :ending_time, class: "form-control" %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :candidate_selection, style: "display: block" %>
-    <%= form.number_field :candidate_selection %>
+  <br>
+  <div class="form-group row">
+    <%= form.label :candidate_selection, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.number_field :candidate_selection, class: "form-control" %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :job_id, style: "display: block" %>
-    <%= form.text_field :job_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <br>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <%= form.submit class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>
