@@ -13,7 +13,6 @@ class AssessmentsController < ApplicationController
 
   # GET /assessments/new
   def new
-    #@assessment = Assessment.new
     @assessment = @job.build_assessment
   end
 
@@ -51,10 +50,11 @@ class AssessmentsController < ApplicationController
 
   # DELETE /assessments/1 or /assessments/1.json
   def destroy
+    @job = @assessment.job
     @assessment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to assessments_url, notice: "Assessment was successfully destroyed." }
+      format.html { redirect_to job_path(@job), notice: "Assessment was successfully destroyed." }
       format.json { head :no_content }
     end
   end
