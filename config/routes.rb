@@ -5,4 +5,6 @@ Rails.application.routes.draw do
     end
   end
   root 'home#index'
+
+  devise_for :users
 end
