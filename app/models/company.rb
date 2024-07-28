@@ -1,6 +1,8 @@
 class Company < ApplicationRecord
   belongs_to :user
 
+  has_many :recruiters, -> { where(role: :recruiter) }, class_name: 'User'
+
   has_one_attached :logo
 
   validates :name, presence: true, uniqueness: true
