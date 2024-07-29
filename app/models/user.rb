@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_many :jobs, dependent: :destroy
 
+  has_many :applications, dependent: :destroy
+
   has_one_attached :avatar
 
   enum role: [:admin, :recruiter, :candidate]
