@@ -74,3 +74,7 @@ gem 'bootstrap-will_paginate', '~> 1.0'
 
 gem 'pry'
 gem 'pry-byebug'
+
+group :development do
+  gem 'letter_opener'
+end

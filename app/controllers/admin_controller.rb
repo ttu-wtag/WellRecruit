@@ -8,6 +8,7 @@ class AdminController < ApplicationController
   def approve_recruiter
     if @recruiter.update(is_verified: true)
       flash[:notice] = "Recruiter '#{@recruiter.name}' has been verified."
+      RecruiterMailer.approval_email(@recruiter).deliver_now
     else
       flash[:notice] = "There arise some issues!"
     end
