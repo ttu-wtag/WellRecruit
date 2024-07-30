@@ -18,4 +18,12 @@
     </div>
   <% end %>
 
+  <% if participation(application).present? %>
+    <div class="card">
+      <div class="card-body">
+        <strong>Your obtained score: </strong> <%= participation(application).score %>
+      </div>
+    </div>
+  <% end %>
+
 </div>
