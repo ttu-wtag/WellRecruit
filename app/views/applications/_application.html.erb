@@ -18,6 +18,13 @@
     </div>
   <% end %>
 
+  <% if assessment(application).present? %>
+    <h5><%= assessment(application).title %></h5>
+    <strong>Starting time:    </strong> <%= schedule(application) %><br>
+    <strong>Duration:</strong> <%= duration(application) %> minutes<br>
+    <%= link_to "Take assessment", "#", class: "btn btn-primary" %>
+  <% end %>
+
   <% if participation_score(application).present? %>
     <div class="card">
       <div class="card-body">
@@ -25,5 +32,5 @@
       </div>
     </div>
   <% end %>
-
 </div>
+<br>
