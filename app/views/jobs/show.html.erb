@@ -14,7 +14,8 @@
         <%= link_to "Show Assessment", assessment_path(@job.assessment), class: "btn btn-sm btn-info" %>&nbsp;
       <% end %>
       <%= button_to "Destroy this job", @job, method: :delete, class: "btn btn-sm btn-danger" %>
-    <% elsif @job.deadline > Time.now %>
+
+    <% elsif can_apply?(@job) %>
       <% if has_applied(@job).nil? %>
         <%= link_to "Apply Now", new_job_application_path(@job), class: "btn btn-sm btn-primary" %>
       <% else %>
