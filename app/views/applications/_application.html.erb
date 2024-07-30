@@ -18,10 +18,10 @@
     </div>
   <% end %>
 
-  <% if participation(application).present? %>
+  <% if participation_score(application).present? %>
     <div class="card">
       <div class="card-body">
-        <strong>Your obtained score: </strong> <%= participation(application).score %>
+        <strong>Your obtained score: </strong> <%= participation_score(application) %>
       </div>
     </div>
   <% end %>
