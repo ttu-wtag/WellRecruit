@@ -1,9 +1,5 @@
 module JobsHelper
   def has_applied(job)
-    if current_user.applications.include?(job)
-      current_user.applications.find(job)
-    else
-      false
-    end
+    application = job.applications.find_by(user_id: current_user.id)
   end
 end

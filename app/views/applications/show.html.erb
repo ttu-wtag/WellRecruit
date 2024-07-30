@@ -2,9 +2,7 @@
 
 <%= render @application %>
 
-<div>
-  <%= link_to "Edit this application", edit_application_path(@application) %> |
-  <%#= link_to "Back to applications", applications_path %>
-
-  <%= button_to "Destroy this application", @application, method: :delete %>
+<div class="d-flex">
+  <%#= link_to "Edit", edit_application_path(@application) %>
+  <%= button_to "Cancel this application", @application, method: :delete, class: "btn btn-danger btn-sm" %>
 </div>

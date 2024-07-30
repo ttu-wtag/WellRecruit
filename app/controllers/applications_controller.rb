@@ -50,10 +50,11 @@ class ApplicationsController < ApplicationController
 
   # DELETE /applications/1 or /applications/1.json
   def destroy
+    @job = @application.job
     @application.destroy!
 
     respond_to do |format|
-      format.html { redirect_to applications_url, notice: "Application was successfully destroyed." }
+      format.html { redirect_to job_path(@job), notice: "Application was successfully destroyed." }
       format.json { head :no_content }
     end
   end
