@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_29_075704) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_30_041158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -103,6 +103,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_29_075704) do
     t.index ["user_id"], name: "index_jobs_on_user_id"
   end
 
+  create_table "participations", force: :cascade do |t|
+    t.integer "score"
+    t.bigint "application_id", null: false
+    t.bigint "assessment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_participations_on_application_id"
+    t.index ["assessment_id"], name: "index_participations_on_assessment_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "statement"
     t.bigint "assessment_id", null: false
@@ -138,6 +148,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_29_075704) do
   add_foreign_key "assessments", "jobs"
   add_foreign_key "companies", "users"
   add_foreign_key "jobs", "users"
+  add_foreign_key "participations", "applications"
+  add_foreign_key "participations", "assessments"
   add_foreign_key "questions", "assessments"
   add_foreign_key "users", "companies"
 end

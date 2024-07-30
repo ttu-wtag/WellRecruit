@@ -2,6 +2,8 @@ class Application < ApplicationRecord
   belongs_to :job
   belongs_to :user
 
+  has_one :participation, dependent: :destroy
+
   has_one_attached :resume
 
   validate :correct_resume_mime_type
