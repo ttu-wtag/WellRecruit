@@ -67,3 +67,6 @@ group :test do
 end
 
 gem 'devise'
+
+# Gemfile
+gem 'active_storage_validations'

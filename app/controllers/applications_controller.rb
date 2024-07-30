@@ -12,7 +12,8 @@ class ApplicationsController < ApplicationController
 
   # GET /applications/new
   def new
-    @application = Application.new
+    @job = Job.find_by_id(params[:job_id])
+    @application = current_user.applications.build
   end
 
   # GET /applications/1/edit
@@ -21,7 +22,7 @@ class ApplicationsController < ApplicationController
 
   # POST /applications or /applications.json
   def create
-    @application = Application.new(application_params)
+    @application = current_user.applications.build(application_params)
 
     respond_to do |format|
       if @application.save
@@ -65,6 +66,6 @@ class ApplicationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def application_params
-      params.require(:application).permit(:status, :job_id, :user_id)
+      params.require(:application).permit(:status, :job_id, :user_id, :resume)
     end
 end

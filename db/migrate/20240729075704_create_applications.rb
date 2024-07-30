@@ -1,7 +1,7 @@
 class CreateApplications < ActiveRecord::Migration[7.1]
   def up
     create_table :applications do |t|
-      t.string :status
+      t.integer :status, default: 0, null: false
       t.references :job, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
 

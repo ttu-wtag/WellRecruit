@@ -1,17 +1,21 @@
 <div id="<%= dom_id application %>">
-  <p>
-    <strong>Status:</strong>
-    <%= application.status %>
-  </p>
 
-  <p>
-    <strong>Job:</strong>
-    <%= application.job_id %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= application.user_id %>
-  </p>
+  <% if application.applied? %>
+    <div class="alert alert-primary" role="alert">
+      Your Application is in pending!
+    </div>
+  <% elsif application.selected? %>
+    <div class="alert alert-info" role="alert">
+      You are selected for the MCQ Assessment.
+    </div>
+  <% elsif application.passed? %>
+    <div class="alert alert-success" role="alert">
+      You've passed the MCQ Assessment.
+    </div>
+  <% else %>
+    <div class="alert alert-danger" role="alert">
+      We are unable to proceed with you!
+    </div>
+  <% end %>
 
 </div>

@@ -15,7 +15,11 @@
       <% end %>
       <%= button_to "Destroy this job", @job, method: :delete, class: "btn btn-sm btn-danger" %>
     <% elsif @job.deadline > Time.now %>
-      <%= link_to "Apply Now", "#", class: "btn btn-sm btn-primary" %>
-    <% end %>
+      <% if has_applied(@job) %>
+        <%= link_to "Apply Now", application_path(has_applied(@job)), class: "btn btn-sm btn-primary" %>
+      <% else %>
+        <%= link_to "Apply Now", new_job_application_path(@job), class: "btn btn-sm btn-primary" %>
+      <% end %>
+  <% end %>
   </div>
 </div>
