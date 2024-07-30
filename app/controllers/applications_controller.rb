@@ -3,7 +3,7 @@ class ApplicationsController < ApplicationController
 
   # GET /applications or /applications.json
   def index
-    @applications = Application.all
+    @applications = Application.where(job_id: params[:job_id])
   end
 
   # GET /applications/1 or /applications/1.json
