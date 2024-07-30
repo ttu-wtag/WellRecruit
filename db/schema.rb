@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_30_041158) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_30_104151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -121,6 +121,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_041158) do
     t.index ["assessment_id"], name: "index_questions_on_assessment_id"
   end
 
+  create_table "responses", force: :cascade do |t|
+    t.integer "answer_id"
+    t.boolean "correct"
+    t.bigint "submission_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submission_id"], name: "index_responses_on_submission_id"
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.integer "question_id"
+    t.bigint "participation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participation_id"], name: "index_submissions_on_participation_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "phone"
@@ -151,5 +168,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_041158) do
   add_foreign_key "participations", "applications"
   add_foreign_key "participations", "assessments"
   add_foreign_key "questions", "assessments"
+  add_foreign_key "responses", "submissions"
+  add_foreign_key "submissions", "participations"
   add_foreign_key "users", "companies"
 end
