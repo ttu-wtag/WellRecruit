@@ -8,8 +8,12 @@ Rails.application.routes.draw do
       resources :questions, shallow: true
     end
 
-    resources :applications
+    resources :applications do
+      member do
+      get 'change_status/:status', to: 'applications#change_status', as: 'change_status'
+      end
+    end
   end
 
   get "my_jobs", to: "jobs#my_jobs", as: "my_jobs"
-end
+  end

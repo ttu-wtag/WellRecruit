@@ -1,5 +1,5 @@
 class ApplicationsController < ApplicationController
-  before_action :set_application, only: %i[ show edit update destroy ]
+  before_action :set_application, only: %i[ show edit update destroy change_status ]
 
   # GET /applications or /applications.json
   def index
@@ -57,6 +57,21 @@ class ApplicationsController < ApplicationController
       format.html { redirect_to job_path(@job), notice: "Application was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def change_status
+    if @application.update(:status => params[:status])
+      if params[:status] == "selected"
+        flash[:notice] = "#{@application.user.name} has been invited to participate into the MCQ assessment."
+        ApplicantsMailer.invitation(@application).deliver_now
+      elsif params[:status] == "rejected"
+        flash[:alert] = "#{@application.user.name} has been rejected to participate into the MCQ assessment."
+        ApplicantsMailer.rejection(@application).deliver_now
+      end
+    else
+      flash[:notice] = "There arise some issues while changing the status"
+    end
+    redirect_to job_applications_path(@application.job)
   end
 
   private

@@ -17,8 +17,8 @@
         <% end %>
       </div>
       <div class="modal-footer">
-        <%= link_to "Reject", "#", class: "btn btn-danger" %>
-        <%= link_to "Select", "#", class: "btn btn-success" %>
+        <%= link_to "Reject", change_status_application_path(id: application.id, status: :rejected), class: "btn btn-danger" %>
+        <%= link_to "Select", change_status_application_path(id: application.id, status: :selected), class: "btn btn-success" %>
       </div>
     </div>
   </div>
