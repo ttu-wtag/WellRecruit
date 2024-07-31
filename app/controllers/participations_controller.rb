@@ -33,6 +33,7 @@ class ParticipationsController < ApplicationController
 
     respond_to do |format|
       if @participation.save
+        CalculateScoreJob.perform_later(@participation)
         format.html { redirect_to application_url(@participation.application), notice: "Participation was successfully created." }
         format.json { render :show, status: :created, location: @participation }
       else
