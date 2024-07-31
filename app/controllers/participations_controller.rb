@@ -23,6 +23,12 @@ class ParticipationsController < ApplicationController
         submission.responses.build(answer_id: answer.id)
       end
     end
+
+    if Time.current > @assessment.ending_time
+      AutomaticParticipationSubmissionJob.perform_later(@participation.id)
+      flash[:notice] = "The assessment time has ended, and the response has been submitted automatically."
+      redirect_to application_url(@assessment)
+    end
   end
 
   # GET /participations/1/edit
@@ -34,17 +40,14 @@ class ParticipationsController < ApplicationController
     @participation = @application.build_participation(participation_params)
 
     respond_to do |format|
-      if Time.current > @assessment.ending_time
-      end
-
       if @participation.save
-        CalculateScoreJob.perform_now(@participation.id)
-        format.html { redirect_to application_url(@participation.application), notice: "Participation was successfully created." }
-        format.json { render :show, status: :created, location: @participation }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @participation.errors, status: :unprocessable_entity }
-      end
+          CalculateScoreJob.perform_now(@participation.id)
+          format.html { redirect_to application_url(@participation.application), notice: "Your submission has been recorded successfully." }
+          format.json { render :show, status: :created, location: @participation }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @participation.errors, status: :unprocessable_entity }
+        end
     end
   end
 
@@ -102,10 +105,10 @@ class ParticipationsController < ApplicationController
     def check_assessment_time
       if Time.current < @assessment.starting_time
         flash[:alert] = "The assessment hasn't started yet."
+        redirect_to application_path(@application)
       elsif Time.current > @assessment.ending_time
         flash[:alert] = "The assessment has ended."
+        redirect_to application_path(@application)
       end
-
-      redirect_to application_path(@application)
     end
 end
