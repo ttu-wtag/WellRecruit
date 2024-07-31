@@ -68,6 +68,6 @@ end
 
 gem 'devise'
 
-gem 'will_paginate', '~> 3.3'
+gem "pagy", "~> 9.0"
 
-gem 'bootstrap-will_paginate', '~> 1.0'
+gem 'pry'
