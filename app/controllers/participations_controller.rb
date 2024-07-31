@@ -1,6 +1,8 @@
 class ParticipationsController < ApplicationController
   before_action :set_participation, only: %i[ show edit update destroy ]
   before_action :set_application, only: %i[ new create ]
+  before_action :find_assessment, only: %i[ new create ]
+  before_action :check_assessment_time, only: [ :new ]
   before_action :set_questions, only: %i[ new create ]
 
   # GET /participations or /participations.json
@@ -32,6 +34,9 @@ class ParticipationsController < ApplicationController
     @participation = @application.build_participation(participation_params)
 
     respond_to do |format|
+      if Time.current > @assessment.ending_time
+      end
+
       if @participation.save
         CalculateScoreJob.perform_now(@participation.id)
         format.html { redirect_to application_url(@participation.application), notice: "Participation was successfully created." }
@@ -76,15 +81,13 @@ class ParticipationsController < ApplicationController
     @application = Application.find(params[:application_id])
   end
 
-  def set_questions
+  def find_assessment
     @assessment = @application.job.assessment
-    @questions = @assessment.questions.includes(:answers)
   end
 
-    # Only allow a list of trusted parameters through.
-    # def participation_params
-    #   params.require(:participation).permit(:score, :application_id, :assessment_id)
-    # end
+  def set_questions
+    @questions = @assessment.questions.includes(:answers)
+  end
 
     def participation_params
       params.require(:participation).permit(
@@ -94,5 +97,15 @@ class ParticipationsController < ApplicationController
           responses_attributes: [:id, :answer_id, :correct, :_destroy]
         ]
       )
+    end
+
+    def check_assessment_time
+      if Time.current < @assessment.starting_time
+        flash[:alert] = "The assessment hasn't started yet."
+      elsif Time.current > @assessment.ending_time
+        flash[:alert] = "The assessment has ended."
+      end
+
+      redirect_to application_path(@application)
     end
 end
