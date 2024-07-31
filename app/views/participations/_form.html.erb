@@ -1,0 +1,68 @@
+<%= form_with(model: [@application, participation]) do |form| %>
+  <% if participation.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(participation.errors.count, "error") %> prohibited this participation from being saved:</h2>
+
+      <ul>
+        <% participation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.hidden_field :application_id, value: @application.id %>
+  </div>
+
+  <div>
+    <%= form.hidden_field :assessment_id, value: assessment(@application).id %>
+  </div>
+
+  <%# @questions.each do |question| %>
+    <%#= form.fields_for :submissions do |submission_field| %>
+<!--      <div class="card">-->
+<!--        <div class="card-header">-->
+<!--          <h5><%#= question.statement %></h5>-->
+          <%#= submission_field.hidden_field :question_id, value:  question.id %>
+<!--        </div>-->
+<!--        <div class="card-body">-->
+          <%#= question.answers.each do |answer| %>
+            <%# submission_field.fields_for :responses do |response_field| %>
+<!--              <div class="form-check">-->
+                <%#= response_field.hidden_field :answer_id, value: answer.id %>
+                <%#= response_field.check_box :correct, class: "form-check-input" %>
+                <%#= answer.option %>
+<!--              </div>-->
+            <%# end %>
+          <%# end %>
+<!--        </div>-->
+<!--      </div>-->
+    <%# end %>
+  <%# end %>
+
+  <% @questions.each do |question| %>
+    <%= form.fields_for :submissions, form.object.submissions.build(question_id: question.id) do |submission_field| %>
+      <div class="card">
+        <div class="card-header">
+          <h5><%= question.statement %></h5>
+        </div>
+        <div class="card-body">
+          <% question.answers.each do |answer| %>
+            <div class="form-check">
+              <%= submission_field.fields_for :responses, submission_field.object.responses.build(answer_id: answer.id) do |response_field| %>
+                <%= response_field.hidden_field :answer_id, value: answer.id %>
+                <%= response_field.check_box :correct, class: "form-check-input" %>
+                <%= answer.option %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

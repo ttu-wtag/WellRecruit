@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         get 'change_status/:status', to: 'applications#change_status', as: 'change_status'
       end
 
-      get 'participation/new', to: 'participation#new', as: 'participation'
+      resources :participations
     end
   end
 

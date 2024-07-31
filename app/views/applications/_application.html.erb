@@ -22,7 +22,7 @@
     <h5><%= assessment(application).title %></h5>
     <strong>Starting time:    </strong> <%= schedule(application) %><br>
     <strong>Duration:</strong> <%= duration(application) %> minutes<br>
-    <%= link_to "Take assessment", application_participation_path(application_id: application.id), class: "btn btn-primary" %>
+    <%= link_to "Take assessment", new_application_participation_path(application), class: "btn btn-primary" %>
   <% end %>
 
   <% if participation_score(application).present? %>
