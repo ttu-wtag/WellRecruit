@@ -58,6 +58,8 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem "pry"
 end
 
 group :test do
@@ -67,3 +69,5 @@ group :test do
 end
 
 gem 'devise'
+
+gem "pagy", "~> 9.0"

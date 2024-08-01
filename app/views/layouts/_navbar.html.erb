@@ -12,6 +12,9 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Jobs</a>
         </li>
+        <li class="nav-item">
+          <%= link_to "Companies", companies_path, method: :get, class: "nav-link"  %>
+        </li>
       </ul>
       <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
         <% if user_signed_in? %>
@@ -27,7 +30,7 @@
               <%= render 'layouts/role_based_dropdown' %>
               <li><hr class="dropdown-divider"></li>
               <li><%= link_to "Edit Profile", edit_user_registration_path, method: :get, class: "dropdown-item" %></li>
-              <li><%= button_to "Log out", destroy_user_session_path, method: :get, class: "dropdown-item" %></li>
+              <li><%= button_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
             </ul>
           </li>
         <% else %>
@@ -39,15 +42,6 @@
           </li>
         <% end %>
       </ul>
-<!--      <form class="d-flex" role="search">-->
-        <%# if user_signed_in? %>
-<!--          <%#= link_to "Edit Profile", edit_user_registration_path, method: :get, class: "btn btn-outline-dark" %> &nbsp;-->
-          <%#= button_to "Log out", destroy_user_session_path, method: :get, class: "btn btn-outline-dark" %>
-        <%# else %>
-<!--          <%#= link_to "Sign in", new_user_session_path, method: :get, class: "btn btn-outline-dark" %>&nbsp;-->
-          <%#= link_to "Sign up", new_user_registration_path, method: :get, class: "btn btn-outline-success" %>
-        <%# end %>
-<!--      </form>-->
     </div>
   </div>
 </nav>
