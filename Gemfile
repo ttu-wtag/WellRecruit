@@ -58,6 +58,10 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem "pry"
+
+  gem 'letter_opener'
 end
 
 group :test do
@@ -71,8 +75,6 @@ gem 'devise'
 # Gemfile
 gem 'active_storage_validations'
 
-group :development do
-  gem 'letter_opener'
-end
-
 gem 'cancancan'
+
+gem "pagy", "~> 9.0"
