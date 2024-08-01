@@ -60,6 +60,8 @@ group :development do
   # gem "spring"
 
   gem "pry"
+
+  gem "letter_opener"
 end
 
 group :test do
@@ -70,17 +72,4 @@ end
 
 gem 'devise'
 
-<<<<<<< HEAD
-gem 'will_paginate', '~> 3.3'
-
-gem 'bootstrap-will_paginate', '~> 1.0'
-
-gem 'pry'
-gem 'pry-byebug'
-
-group :development do
-  gem 'letter_opener'
-end
-=======
 gem "pagy", "~> 9.0"
->>>>>>> development
