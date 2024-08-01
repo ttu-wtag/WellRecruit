@@ -58,6 +58,8 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem "pry"
 end
 
 group :test do
@@ -68,6 +70,7 @@ end
 
 gem 'devise'
 
+<<<<<<< HEAD
 gem 'will_paginate', '~> 3.3'
 
 gem 'bootstrap-will_paginate', '~> 1.0'
@@ -78,3 +81,6 @@ gem 'pry-byebug'
 group :development do
   gem 'letter_opener'
 end
+=======
+gem "pagy", "~> 9.0"
+>>>>>>> development

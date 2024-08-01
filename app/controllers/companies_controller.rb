@@ -3,7 +3,7 @@ class CompaniesController < ApplicationController
 
   # GET /companies or /companies.json
   def index
-    @companies = Company.paginate(:page => params[:page], :per_page => 12)
+    @pagy, @companies = pagy(Company.all)
   end
 
   # GET /companies/1 or /companies/1.json
