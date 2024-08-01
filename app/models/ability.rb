@@ -13,26 +13,10 @@ class Ability
     when 'recruiter'
       if user.is_verified
         can :manage, Job, user_id: user.id
-        #can :manage, Assessment, job: { user_id: user.id }
-        can :manage, Assessment do |assessment|
-          assessment.job.user_id == user.id
-        end
-        # can :read, Application, job_post: { recruiter_id: user.id }
-        # can :create, MCQAssessment, job_post: { recruiter_id: user.id }
-        # can :manage, MCQAssessment, job_post: { recruiter_id: user.id }
-        # can :manage, Question, assessment: { job_post: { recruiter_id: user.id } }
-        # can :manage, Answer, question: { assessment: { job_post: { recruiter_id: user.id } } }
-        # can :manage, Participation, assessment: { job_post: { recruiter_id: user.id } }
-        # can :manage, Submission, participation: { assessment: { job_post: { recruiter_id: user.id } } }
-        # can :read, User, company_id: user.company_id, role: 'candidate'
-      else
-
-        # can :read, Application, job_post: { recruiter_id: user.id }
-        # can :read, MCQAssessment, job_post: { recruiter_id: user.id }
-        # can :read, Question, assessment: { job_post: { recruiter_id: user.id } }
-        # can :read, Answer, question: { assessment: { job_post: { recruiter_id: user.id } } }
-        # can :read, Participation, assessment: { job_post: { recruiter_id: user.id } }
-        # can :read, Submission, participation: { assessment: { job_post: { recruiter_id: user.id } } }
+        can :manage, Assessment, job: { user_id: user.id }
+        can :manage, Question, assessment: { job: { user_id: user.id } }
+        can :index, Application, job: { user_id: user.id }
+        can :change_status, Application, job: { user_id: user.id }
       end
     when 'candidate'
       # can :read, JobPost

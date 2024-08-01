@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  load_and_authorize_resource :assessment
+
   before_action :set_assessment
   before_action :set_question, only: %i[ show edit update destroy ]
 
