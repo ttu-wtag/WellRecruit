@@ -15,9 +15,9 @@
         <td><%= recruiter.email %></td>
         <td class="d-flex">
           <% if !recruiter.is_verified %>
-            <%= link_to "Approve", approve_recruiter_path(recruiter), method: :get, class: "btn btn-success btn-sm" %>&nbsp;
+            <%= link_to "Approve", approve_recruiter_admin_path(current_user, recruiter), method: :get, class: "btn btn-success btn-sm" %>&nbsp;
           <% end %>
-          <%= link_to "Delete", destroy_recruiter_path(recruiter), method: :get,  data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+          <%= link_to "Delete", destroy_recruiter_admin_path(current_user, recruiter), method: :get, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
         </td>
       </tr>
     <% end %>

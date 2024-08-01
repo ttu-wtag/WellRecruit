@@ -25,8 +25,6 @@ gem 'pagy', '~> 9.0'
 # Development and test gems
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
-  gem 'rubocop'
-  gem 'ordinare'
 end
 
 # Development gems
