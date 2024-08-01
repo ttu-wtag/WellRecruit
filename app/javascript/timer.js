@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
     var timerDisplay = document.getElementById('timer');
-    // var endTime = new Date('<%= @assessment.ending_time %>').getTime();
     var form = document.getElementById('assessment-form');
 
     function updateTimer() {
