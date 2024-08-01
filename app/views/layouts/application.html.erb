@@ -19,6 +19,11 @@
 <div class="container">
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
+  <% if user_signed_in? and !current_user.is_verified %>
+    <div class="alert alert-warning" role="alert">
+      Your account is not verified yet! You can use this application only in view mode.
+    </div>
+  <% end %>
   <%= yield %>
 </div>
 </body>

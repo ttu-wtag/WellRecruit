@@ -1,4 +1,6 @@
 class AssessmentsController < ApplicationController
+  load_and_authorize_resource
+
   before_action :set_job
   before_action :set_assessment, only: %i[ show edit update destroy ]
 

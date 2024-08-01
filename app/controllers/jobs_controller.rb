@@ -1,4 +1,6 @@
 class JobsController < ApplicationController
+  load_and_authorize_resource
+
   before_action :set_job, only: %i[ show edit update destroy ]
 
   # GET /jobs or /jobs.json
