@@ -1,5 +1,5 @@
 class ApplicationsController < ApplicationController
-  load_and_authorize_resource :job
+  load_and_authorize_resource
 
   before_action :set_application, only: %i[ show edit update destroy change_status ]
 
