@@ -1,11 +1,11 @@
 class ApplicationsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :job
 
   before_action :set_application, only: %i[ show edit update destroy change_status ]
 
   # GET /applications or /applications.json
   def index
-    @applications = Application.where(job_id: params[:job_id])
+    @applications = Application.accessible_by(current_ability)
   end
 
   # GET /applications/1 or /applications/1.json

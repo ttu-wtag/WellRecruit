@@ -19,17 +19,9 @@ class Ability
         can :change_status, Application, job: { user_id: user.id }
       end
     when 'candidate'
-      # can :read, JobPost
-      # can :create, Application
-      # can :manage, Application, user_id: user.id
-      # can :read, MCQAssessment, candidate_selection: true
-      # can :create, Participation, assessment: { candidate_selection: true }
-      # can :manage, Participation, user_id: user.id
-      # can :create, Submission, participation: { user_id: user.id }
-      # can :manage, Submission, participation: { user_id: user.id }
-      #can :read, Company
-    else
-
+      cannot :change_status, Application
+      can :manage, Application, user_id: user.id
+      can [:new, :create], Participation, Application: { user_id: user.id }
     end
 
     # Custom logic for handling sensitive data or specific actions
