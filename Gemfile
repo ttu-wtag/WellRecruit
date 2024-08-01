@@ -74,3 +74,5 @@ gem 'active_storage_validations'
 group :development do
   gem 'letter_opener'
 end
+
+gem 'cancancan'
