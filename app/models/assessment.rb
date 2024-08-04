@@ -6,7 +6,6 @@ class Assessment < ApplicationRecord
   validates :title, presence: true
   validates :starting_time, presence: true
   validates :ending_time, presence: true
-  validates :candidate_selection, presence: true
   validate :ending_time_after_starting_time
 
   private
