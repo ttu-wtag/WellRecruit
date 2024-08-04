@@ -10,20 +10,23 @@ class Ability
     case user.role
     when 'admin'
       can :manage, Company, user_id: user.id
-      # can :manage, Recruiter
     when 'recruiter'
       if user.is_verified
         can :manage, Job, user_id: user.id
         can :manage, Assessment, job: { user_id: user.id }
         can :manage, Question, assessment: { job: { user_id: user.id } }
         can :read, Application, job: { user_id: user.id }
-        can :change_status, Application, job: { user_id: user.id }
-        # cannot :manage, Application
+        # can :change_status, Application, job: { user_id: user.id }
+        # can [:read, :change_status], Application do |application|
+        #   application.job.user_id == user.id
+        # end
       end
     when 'candidate'
       cannot :change_status, Application
       can :manage, Application, user_id: user.id
       can [:new, :create], Participation, Application: { user_id: user.id }
     end
+
+    # can :access, :recruiter_controller_action if
   end
 end

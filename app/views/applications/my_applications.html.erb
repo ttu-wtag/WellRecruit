@@ -1,0 +1,34 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Applications</h1>
+
+<div class="d-flex">
+  <table class="table table-primary">
+    <thead>
+    <tr>
+      <th scope="col">Job Title</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @applications.each do |application| %>
+      <tr>
+        <td><%= application.job.title %></td>
+        <td>
+          <% if application.applied? %>
+            <span class="badge text-bg-secondary">Pending</span>
+          <% elsif application.selected? %>
+            <span class="badge text-bg-success">Selected</span>
+          <% elsif application.rejected? %>
+            <span class="badge text-bg-danger">Rejected</span>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "Show Details", application, class: "btn btn-info btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table> &nbsp;&nbsp;
+</div>

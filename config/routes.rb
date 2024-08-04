@@ -11,14 +11,14 @@ Rails.application.routes.draw do
       resources :questions, shallow: true
     end
 
-    resources :applications do
+    resources :applications, shallow: true do
       member do
         get 'change_status/:status', to: 'applications#change_status', as: 'change_status'
       end
-
       resources :participations
     end
   end
+  get 'my_applications', to: 'applications#my_applications', as: 'my_applications'
 
   get "my_jobs", to: "jobs#my_jobs", as: "my_jobs"
 end

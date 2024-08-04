@@ -4,4 +4,5 @@
 <% elsif current_user.recruiter?%>
   <%= link_to "My Jobs", my_jobs_path, method: :get, class: "dropdown-item" %>
 <% elsif current_user.candidate? %>
+  <%= link_to "My Applications", my_applications_path, method: :get, class: "dropdown-item" %>
 <% end %>
