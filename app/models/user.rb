@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :company, dependent: :destroy
+  belongs_to :office, optional: true, class_name: 'Company'
 
   has_one_attached :avatar
 
@@ -13,4 +14,11 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true, length: { minimum: 3, maximum: 30 }
   validates :role, presence: true
+  before_save :set_is_verified
+
+  private
+
+  def set_is_verified
+    self.is_verified = true unless role == "recruiter"
+  end
 end
