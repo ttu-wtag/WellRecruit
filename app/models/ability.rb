@@ -9,15 +9,16 @@ class Ability
 
     case user.role
     when 'admin'
-      #can :manage, :all
+      can :manage, Company, user_id: user.id
+      # can :manage, Recruiter
     when 'recruiter'
       if user.is_verified
         can :manage, Job, user_id: user.id
         can :manage, Assessment, job: { user_id: user.id }
         can :manage, Question, assessment: { job: { user_id: user.id } }
-        can :index, Application, job: { user_id: user.id }
+        can :read, Application, job: { user_id: user.id }
         can :change_status, Application, job: { user_id: user.id }
-        cannot :manage, Application
+        # cannot :manage, Application
       end
     when 'candidate'
       cannot :change_status, Application
