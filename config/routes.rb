@@ -17,8 +17,9 @@ Rails.application.routes.draw do
       end
       resources :participations
     end
+    get 'recruiter_applications', to: 'applications#recruiter_applications', as: 'recruiter_applications'
   end
-  get 'my_applications', to: 'applications#my_applications', as: 'my_applications'
+  get 'candidate_applications', to: 'applications#candidate_applications', as: 'candidate_applications'
 
   get "my_jobs", to: "jobs#my_jobs", as: "my_jobs"
 end

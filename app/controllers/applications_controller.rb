@@ -5,14 +5,15 @@ class ApplicationsController < ApplicationController
 
   # GET /applications or /applications.json
   def index
-    if current_user.candidate?
-      @applications = Application.where(user_id: current_user.id)
-    else
-      @applications = Application.where(job_id: params[:job_id])
-    end
   end
 
-  def my_applications
+  def recruiter_applications
+    @job = Job.find_by_id(params[:job_id])
+    @applications = Application.where(job_id: params[:job_id])
+    render :index
+  end
+
+  def candidate_applications
     @applications = Application.where(user_id: current_user.id)
   end
   # GET /applications/1 or /applications/1.json
