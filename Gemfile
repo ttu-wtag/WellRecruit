@@ -17,7 +17,7 @@ gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
-group :development, :test do
+group :developmentqwq, :test do
   gem 'debug', platforms: %i[mri windows]
 end
 

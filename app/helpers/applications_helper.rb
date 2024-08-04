@@ -1,4 +1,9 @@
 module ApplicationsHelper
+
+  def participation(application)
+    application.participation
+  end
+
   def participation_score(application)
     application.participation.present? ? application.participation.score : nil
   end
