@@ -6,8 +6,7 @@ class User < ApplicationRecord
 
   has_many :jobs, dependent: :destroy
   has_one :company, dependent: :destroy
-  belongs_to :company, optional: true
-  # belongs_to :office, optional: true, class_name: 'Company'
+  belongs_to :office, optional: true, class_name: 'Company'
 
   has_one_attached :avatar
 
