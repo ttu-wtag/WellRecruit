@@ -5,12 +5,8 @@ class ApplicationsController < ApplicationController
 
   # GET /applications or /applications.json
   def index
-  end
-
-  def recruiter_applications
     @job = Job.find_by_id(params[:job_id])
     @applications = Application.where(job_id: params[:job_id])
-    render :index
   end
 
   def candidate_applications
