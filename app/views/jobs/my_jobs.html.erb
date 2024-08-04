@@ -5,24 +5,4 @@
   <%= link_to "New job opening", new_job_path, class: "btn btn-primary" %>
 </div>
 
-<div id="jobs">
-  <% @jobs.each do |job| %>
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title"><%= job.title %></h5>
-          <h6 class="card-subtitle mb-2 text-muted">Location: <%= job.location %></h6>
-
-          <p class="card-text">
-            <strong>Salary range:</strong> <%= job.salary_range %><br>
-            <strong>Deadline:</strong> <%= job.deadline %><br>
-          </p>
-          <div class="d-flex">
-            <%= link_to "Show Details", job, class: "btn btn-primary btn-sm" %> &nbsp;
-            <%= link_to "Show Applications", job_applications_path(job), class: "btn btn-info btn-sm" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
+<%= render "job_card" %>
