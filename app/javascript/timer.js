@@ -6,14 +6,11 @@ document.addEventListener("DOMContentLoaded", function() {
         var now = new Date().getTime();
         var timeLeft = endTime - now;
 
-        if (timeLeft === 60) {
-            alert("You have 60 seconds left! After the submission time you can't submit this participation anymore");
-        }
-
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
             timerDisplay.innerHTML = "Time's up!";
             document.getElementById('submit-button').disabled = true;
+            alert("Time's up! You can't submit this participation anymore.");
             // form.submit();
             // return;
         }
