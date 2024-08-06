@@ -1,6 +1,7 @@
 class Job < ApplicationRecord
   belongs_to :user
   has_one :assessment, dependent: :destroy
+  belongs_to :company
 
   has_many :applications, dependent: :destroy
 

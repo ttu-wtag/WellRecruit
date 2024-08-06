@@ -3,6 +3,8 @@ class Company < ApplicationRecord
 
   has_many :recruiters, -> { where(role: :recruiter) }, class_name: 'User'
 
+  has_many :jobs, dependent: :destroy
+
   has_one_attached :logo
 
   validates :name, presence: true, uniqueness: true
