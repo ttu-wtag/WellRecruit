@@ -19,7 +19,7 @@
       <% if has_applied(@job).nil? %>
         <%= link_to "Apply Now", new_job_application_path(@job), class: "btn btn-sm btn-primary" %>
       <% else %>
-        <%= link_to "Apply Now", application_path(has_applied(@job)), class: "btn btn-sm btn-primary" %>
+        <%= link_to "Show Application", application_path(has_applied(@job)), class: "btn btn-sm btn-primary" %>
       <% end %>
   <% end %>
   </div>
