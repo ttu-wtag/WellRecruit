@@ -1,6 +1,7 @@
 class Job < ApplicationRecord
   belongs_to :user
   has_one :assessment, dependent: :destroy
+  belongs_to :company
 
   # Validations
   validates :title, presence: true, length: { minimum: 6 }
