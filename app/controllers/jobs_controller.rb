@@ -1,9 +1,9 @@
 class JobsController < ApplicationController
   before_action :set_job, only: %i[ show edit update destroy ]
+  before_action :set_company, only: %i[ create ]
 
   # GET /jobs or /jobs.json
   def index
-    # @jobs = Job.all
     @pagy, @jobs = pagy(Job.all)
   end
 
@@ -18,6 +18,7 @@ class JobsController < ApplicationController
   # GET /jobs/new
   def new
     @job = current_user.jobs.build
+    @job.company = @company
   end
 
   # GET /jobs/1/edit
@@ -27,6 +28,7 @@ class JobsController < ApplicationController
   # POST /jobs or /jobs.json
   def create
     @job = current_user.jobs.build(job_params)
+    @job.company = @company
 
     respond_to do |format|
       if @job.save
@@ -71,5 +73,9 @@ class JobsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def job_params
       params.require(:job).permit(:title, :overview, :responsibilities, :requirements, :benifits, :location, :deadline, :salary_range)
+    end
+
+    def set_company
+      @company = Company.find(current_user.company_id)
     end
 end
