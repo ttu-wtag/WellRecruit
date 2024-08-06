@@ -19,7 +19,7 @@ class Ability
         can :change_status, Application, job: { user_id: user.id }
       end
     when 'candidate'
-      can [:my_applications, :show, :create, :update, :destroy], Application, user_id: user.id
+      can [:candidate_applications, :show, :create, :update, :destroy], Application, user_id: user.id
       can [:new, :create], Participation, Application: { user_id: user.id }
     end
   end
