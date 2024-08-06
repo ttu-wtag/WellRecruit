@@ -34,8 +34,4 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-<<<<<<< HEAD
-=======
-.idea/WellRecruit.iml
->>>>>>> development
 .idea/
