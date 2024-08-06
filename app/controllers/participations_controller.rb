@@ -24,11 +24,11 @@ class ParticipationsController < ApplicationController
       end
     end
 
-    if Time.current > @assessment.ending_time
-      AutomaticParticipationSubmissionJob.perform_later(@participation.id)
-      flash[:notice] = "The assessment time has ended, and the response has been submitted automatically."
-      redirect_to application_url(@assessment)
-    end
+    # if Time.current > @assessment.ending_time
+    #   AutomaticParticipationSubmissionJob.perform_later(@participation.id)
+    #   flash[:notice] = "The assessment time has ended, and the response has been submitted automatically."
+    #   redirect_to application_url(@assessment)
+    # end
   end
 
   # GET /participations/1/edit
@@ -37,10 +37,11 @@ class ParticipationsController < ApplicationController
 
   # POST /participations or /participations.json
   def create
-    @participation = @application.build_participation(participation_params)
+    if check_assessment_time
+      @participation = @application.build_participation(participation_params)
 
-    respond_to do |format|
-      if @participation.save
+      respond_to do |format|
+        if @participation.save
           CalculateScoreJob.perform_now(@participation.id)
           format.html { redirect_to application_url(@participation.application), notice: "Your submission has been recorded successfully." }
           format.json { render :show, status: :created, location: @participation }
@@ -48,6 +49,7 @@ class ParticipationsController < ApplicationController
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @participation.errors, status: :unprocessable_entity }
         end
+      end
     end
   end
 
