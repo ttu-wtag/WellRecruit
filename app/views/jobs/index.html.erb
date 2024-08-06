@@ -2,21 +2,4 @@
 
 <h1>Jobs</h1>
 
-<div id="jobs">
-  <% @jobs.each do |job| %>
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title"><%= job.title %></h5>
-          <h6 class="card-subtitle mb-2 text-muted">Location: <%= job.location %></h6>
-
-          <p class="card-text">
-            <strong>Salary range:</strong> <%= job.salary_range %><br>
-            <strong>Deadline:</strong> <%= job.deadline %><br>
-          </p>
-          <%= link_to "Show Details", job, class: "btn btn-primary btn-sm" %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
+<%= render "job_card" %>

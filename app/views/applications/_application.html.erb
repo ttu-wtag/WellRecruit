@@ -18,11 +18,13 @@
     </div>
   <% end %>
 
-  <% if assessment(application).present? %>
+  <% if application.selected? and assessment(application).present? %>
     <h5><%= assessment(application).title %></h5>
     <strong>Starting time:    </strong> <%= schedule(application) %><br>
     <strong>Duration:</strong> <%= duration(application) %> minutes<br>
-    <%= link_to "Take assessment", new_application_participation_path(application), class: "btn btn-primary" %>
+    <% if participation(application).nil? %>
+      <%= link_to "Take assessment", new_application_participation_path(application), class: "btn btn-primary" %>
+    <% end %>
   <% end %>
 
   <% if participation_score(application).present? %>

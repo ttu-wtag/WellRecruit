@@ -3,7 +3,7 @@
 <div class="card mb-4">
   <%= render @company %>
 
-  <% if current_user == @company.user %>
+  <% if @company.user == current_user %>
     <div class="card-footer d-flex">
       <%= link_to "Edit", edit_company_path(@company), class:"btn btn-warning btn-sm" %>&nbsp;
       <%= button_to "Delete", @company, method: :delete, class:"btn btn-danger btn-sm" %>

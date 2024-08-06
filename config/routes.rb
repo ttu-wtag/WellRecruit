@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :admin, only: [:index] do
+    member do
+      get 'approve_recruiter/:recruiter_id', to: 'admin#approve_recruiter', as: 'approve_recruiter'
+      get 'destroy_recruiter/:recruiter_id', to: 'admin#destroy_recruiter', as: 'destroy_recruiter'
+    end
+  end
   resources :companies
   get 'my_company', to: 'companies#my_company', as: :my_company
 

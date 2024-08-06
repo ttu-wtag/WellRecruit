@@ -5,11 +5,12 @@ class JobsController < ApplicationController
 
   # GET /jobs or /jobs.json
   def index
-    @jobs = Job.all
+    # @jobs = Job.all
+    @pagy, @jobs = pagy(Job.all)
   end
 
   def my_jobs
-    @jobs = Job.where(user_id: current_user.id)
+    @pagy, @jobs = pagy(Job.where(user_id: current_user.id))
   end
 
   # GET /jobs/1 or /jobs/1.json
