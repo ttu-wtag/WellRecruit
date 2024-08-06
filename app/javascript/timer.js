@@ -9,8 +9,10 @@ document.addEventListener("DOMContentLoaded", function() {
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
             timerDisplay.innerHTML = "Time's up!";
-            form.submit();
-            return;
+            document.getElementById('submit-button').disabled = true;
+            alert("Time's up! You can't submit this participation anymore.");
+            // form.submit();
+            // return;
         }
 
         var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

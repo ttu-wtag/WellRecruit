@@ -5,7 +5,7 @@ module ApplicationsHelper
   end
 
   def participation_score(application)
-    application.participation.present? ? application.participation.score : nil
+    application.participation.present? ? application.participation.score : "Not Participated"
   end
 
   def assessment(application)

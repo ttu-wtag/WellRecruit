@@ -2,7 +2,7 @@ class ParticipationsController < ApplicationController
   before_action :set_participation, only: %i[ show edit update destroy ]
   before_action :set_application, only: %i[ new create ]
   before_action :find_assessment, only: %i[ new create ]
-  before_action :check_assessment_time, only: [ :new ]
+  before_action :check_assessment_time, only: %i[ new create ]
   before_action :set_questions, only: %i[ new create ]
 
   # GET /participations or /participations.json
@@ -24,11 +24,11 @@ class ParticipationsController < ApplicationController
       end
     end
 
-    if Time.current > @assessment.ending_time
-      AutomaticParticipationSubmissionJob.perform_later(@participation.id)
-      flash[:notice] = "The assessment time has ended, and the response has been submitted automatically."
-      redirect_to application_url(@assessment)
-    end
+    # if Time.current > @assessment.ending_time
+    #   AutomaticParticipationSubmissionJob.perform_later(@participation.id)
+    #   flash[:notice] = "The assessment time has ended, and the response has been submitted automatically."
+    #   redirect_to application_url(@assessment)
+    # end
   end
 
   # GET /participations/1/edit
@@ -41,13 +41,13 @@ class ParticipationsController < ApplicationController
 
     respond_to do |format|
       if @participation.save
-          CalculateScoreJob.perform_now(@participation.id)
-          format.html { redirect_to application_url(@participation.application), notice: "Your submission has been recorded successfully." }
-          format.json { render :show, status: :created, location: @participation }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @participation.errors, status: :unprocessable_entity }
-        end
+        CalculateScoreJob.perform_now(@participation.id)
+        format.html { redirect_to application_url(@participation.application), notice: "Your submission has been recorded successfully." }
+        format.json { render :show, status: :created, location: @participation }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @participation.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -103,10 +103,18 @@ class ParticipationsController < ApplicationController
     end
 
     def check_assessment_time
+      check_starting_time
+      check_ending_time
+    end
+
+    def check_starting_time
       if Time.current < @assessment.starting_time
         flash[:alert] = "The assessment hasn't started yet."
         redirect_to application_path(@application)
-      elsif Time.current > @assessment.ending_time
+      end
+    end
+    def check_ending_time
+      if Time.current > @assessment.ending_time
         flash[:alert] = "The assessment has ended."
         redirect_to application_path(@application)
       end
