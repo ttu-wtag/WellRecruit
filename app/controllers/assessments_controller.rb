@@ -3,6 +3,7 @@ class AssessmentsController < ApplicationController
 
   before_action :set_job
   before_action :set_assessment, only: %i[ show edit update destroy ]
+  before_action :check_job_permissions, only: %i[ new create ]
 
   # GET /assessments or /assessments.json
   def index
@@ -73,6 +74,13 @@ class AssessmentsController < ApplicationController
     end
 
     def set_job
-      @job = Job.find_by(id: params[:job_id])
+      @job = Job.find_by(id: params[:job_id], user_id: current_user.id)
+    end
+
+    def check_job_permissions
+      if @job.nil?
+        flash[:notice] = "You are not authorized to perform this action."
+        redirect_to root_path
+      end
     end
 end

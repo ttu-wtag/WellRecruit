@@ -13,6 +13,7 @@ class Ability
     when 'recruiter'
       if user.is_verified
         can :manage, Job, user_id: user.id
+        can :create, Assessment
         can :manage, Assessment, job: { user_id: user.id }
         can :manage, Question, assessment: { job: { user_id: user.id } }
         can :index, Application, job: { user_id: user.id }
