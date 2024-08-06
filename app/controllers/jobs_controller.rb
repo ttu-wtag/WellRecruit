@@ -3,8 +3,9 @@ class JobsController < ApplicationController
 
   # GET /jobs or /jobs.json
   def index
-    # @jobs = Job.all
     @pagy, @jobs = pagy(Job.all)
+    @jobs = @jobs.where(company_id: params[:company_id]) if params[:company_id].present?
+    @jobs = @jobs.where('title LIKE ? OR responsibilities LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%") if params[:keyword].present?
   end
 
   def my_jobs
