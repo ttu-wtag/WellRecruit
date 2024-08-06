@@ -13,7 +13,7 @@
                 <strong>Deadline:</strong> <%= job.deadline %><br>
               </p>
               <%= link_to "Show Details", job, class: "btn btn-primary btn-sm" %>
-              <% if job.user_id == current_user.id %>
+              <% if user_signed_in? and job.user_id == current_user.id %>
               <%= link_to "Show Applications", job_applications_path(job), class: "btn btn-info
                btn-sm" %>
               <% end %>
