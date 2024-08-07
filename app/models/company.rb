@@ -1,7 +1,7 @@
 class Company < ApplicationRecord
   belongs_to :user
 
-  has_many :recruiters, -> { where(role: :recruiter) }, class_name: 'User'
+  has_many :recruiters, -> { where(role: :recruiter) }, class_name: 'User', foreign_key: 'office_id'
 
   has_many :jobs, dependent: :destroy
 
