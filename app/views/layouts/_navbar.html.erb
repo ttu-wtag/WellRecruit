@@ -9,8 +9,9 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Home</a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" href="#">Jobs</a>
+          <%= link_to "Jobs", jobs_path, method: :get, class: "nav-link" %>
         </li>
         <li class="nav-item">
           <%= link_to "Companies", companies_path, method: :get, class: "nav-link"  %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_28_112404) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_28_112404) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "applications", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.bigint "job_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_applications_on_job_id"
+    t.index ["user_id"], name: "index_applications_on_user_id"
   end
 
   create_table "assessments", force: :cascade do |t|
@@ -90,7 +100,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_28_112404) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_jobs_on_company_id"
     t.index ["user_id"], name: "index_jobs_on_user_id"
+  end
+
+  create_table "participations", force: :cascade do |t|
+    t.integer "score"
+    t.bigint "application_id", null: false
+    t.bigint "assessment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_participations_on_application_id"
+    t.index ["assessment_id"], name: "index_participations_on_assessment_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -99,6 +121,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_28_112404) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["assessment_id"], name: "index_questions_on_assessment_id"
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.integer "answer_id"
+    t.boolean "correct"
+    t.bigint "submission_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submission_id"], name: "index_responses_on_submission_id"
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.integer "question_id"
+    t.bigint "participation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participation_id"], name: "index_submissions_on_participation_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -114,18 +153,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_28_112404) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "company_id"
-    t.index ["company_id"], name: "index_users_on_company_id"
+    t.bigint "office_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answers", "questions"
+  add_foreign_key "applications", "jobs"
+  add_foreign_key "applications", "users"
   add_foreign_key "assessments", "jobs"
   add_foreign_key "companies", "users"
+  add_foreign_key "jobs", "companies"
   add_foreign_key "jobs", "users"
+  add_foreign_key "participations", "applications"
+  add_foreign_key "participations", "assessments"
   add_foreign_key "questions", "assessments"
-  add_foreign_key "users", "companies"
+  add_foreign_key "responses", "submissions"
+  add_foreign_key "submissions", "participations"
+  add_foreign_key "users", "companies", column: "office_id"
 end
