@@ -5,9 +5,9 @@ FactoryBot.define do
     status { :applied }
 
     trait :with_resume do
-      after(:create) do |application|
+      after(:build) do |application|
         application.resume.attach(
-          io: File.open(Rails.root.join('spec', 'fixtures', 'files', 'resume.pdf')),
+          io: File.open(Rails.root.join('spec/fixtures/files/resume.pdf')),
           filename: 'resume.pdf',
           content_type: 'application/pdf'
         )
@@ -15,7 +15,7 @@ FactoryBot.define do
     end
 
     trait :with_invalid_resume do
-      after(:create) do |application|
+      after(:build) do |application|
         application.resume.attach(
           io: File.open(Rails.root.join('spec', 'fixtures', 'files', 'image.jpeg')),
           filename: 'image.jpeg',
