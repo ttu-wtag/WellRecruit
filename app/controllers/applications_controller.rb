@@ -2,11 +2,13 @@ class ApplicationsController < ApplicationController
   load_and_authorize_resource
 
   before_action :set_application, only: %i[ show edit update destroy change_status ]
+  before_action :set_job, only: %i[ index new create ]
+  before_action :check_job_permission, only: %i[ index ]
 
   # GET /applications or /applications.json
   def index
-    @job = Job.find_by_id(params[:job_id])
-    @applications = Application.where(job_id: params[:job_id])
+    @applications = @job.applications.all
+    # @applications = Application.where(job_id: params[:job_id])
   end
 
   def candidate_applications
@@ -18,7 +20,6 @@ class ApplicationsController < ApplicationController
 
   # GET /applications/new
   def new
-    @job = Job.find_by_id(params[:job_id])
     @application = current_user.applications.build
   end
 
@@ -89,5 +90,16 @@ class ApplicationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def application_params
       params.require(:application).permit(:status, :job_id, :user_id, :resume)
+    end
+
+    def set_job
+      @job = Job.find_by_id(params[:job_id])
+    end
+
+    def check_job_permission
+      if @job.user != current_user
+        flash[:notice] = "You do not have permission to access that page."
+        redirect_to root_path
+      end
     end
 end
