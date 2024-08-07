@@ -78,6 +78,6 @@ class JobsController < ApplicationController
     end
 
     def set_company
-      @company = Company.find(current_user.company_id)
+      @company = Company.find(current_user.office_id)
     end
 end

@@ -2,7 +2,7 @@ class AdminController < ApplicationController
   before_action :set_recruiter, only: [:approve_recruiter, :destroy_recruiter]
 
   def index
-    @recruiters = User.where(role: :recruiter, company_id: current_user.company.id)
+    @recruiters = User.where(role: :recruiter, office_id: current_user.company.id)
   end
 
   def approve_recruiter

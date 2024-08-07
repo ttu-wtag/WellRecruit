@@ -153,9 +153,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "company_id"
-    t.index ["company_id"], name: "index_users_on_company_id"
+    t.bigint "office_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -173,5 +173,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
   add_foreign_key "questions", "assessments"
   add_foreign_key "responses", "submissions"
   add_foreign_key "submissions", "participations"
-  add_foreign_key "users", "companies"
+  add_foreign_key "users", "companies", column: "office_id"
 end
