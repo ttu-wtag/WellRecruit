@@ -20,6 +20,8 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :developmentqwq, :test do
   gem 'debug', platforms: %i[mri windows]
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 6.1.3'
 end
 
 group :development do
@@ -31,4 +33,5 @@ end
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 6.0'
  end
