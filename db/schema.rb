@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_08_102657) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
     t.bigint "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_answers_on_deleted_at"
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
@@ -57,6 +59,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_applications_on_deleted_at"
     t.index ["job_id"], name: "index_applications_on_job_id"
     t.index ["user_id"], name: "index_applications_on_user_id"
   end
@@ -69,6 +73,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
     t.bigint "job_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_assessments_on_deleted_at"
     t.index ["job_id"], name: "index_assessments_on_job_id"
   end
 
@@ -83,6 +89,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_companies_on_deleted_at"
     t.index ["email"], name: "index_companies_on_email", unique: true
     t.index ["name"], name: "index_companies_on_name", unique: true
     t.index ["user_id"], name: "index_companies_on_user_id"
@@ -101,7 +109,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "company_id", null: false
+    t.datetime "deleted_at"
     t.index ["company_id"], name: "index_jobs_on_company_id"
+    t.index ["deleted_at"], name: "index_jobs_on_deleted_at"
     t.index ["user_id"], name: "index_jobs_on_user_id"
   end
 
@@ -111,8 +121,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
     t.bigint "assessment_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["application_id"], name: "index_participations_on_application_id"
     t.index ["assessment_id"], name: "index_participations_on_assessment_id"
+    t.index ["deleted_at"], name: "index_participations_on_deleted_at"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -120,7 +132,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
     t.bigint "assessment_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["assessment_id"], name: "index_questions_on_assessment_id"
+    t.index ["deleted_at"], name: "index_questions_on_deleted_at"
   end
 
   create_table "responses", force: :cascade do |t|
@@ -129,6 +143,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
     t.bigint "submission_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_responses_on_deleted_at"
     t.index ["submission_id"], name: "index_responses_on_submission_id"
   end
 
@@ -137,6 +153,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
     t.bigint "participation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_submissions_on_deleted_at"
     t.index ["participation_id"], name: "index_submissions_on_participation_id"
   end
 
@@ -154,7 +172,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_085146) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "company_id"
+    t.datetime "deleted_at"
     t.index ["company_id"], name: "index_users_on_company_id"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
