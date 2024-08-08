@@ -158,6 +158,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_08_102657) do
     t.index ["participation_id"], name: "index_submissions_on_participation_id"
   end
 
+  create_table "responses", force: :cascade do |t|
+    t.integer "answer_id"
+    t.boolean "correct"
+    t.bigint "submission_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submission_id"], name: "index_responses_on_submission_id"
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.integer "question_id"
+    t.bigint "participation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participation_id"], name: "index_submissions_on_participation_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "phone"
@@ -175,7 +192,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_08_102657) do
     t.datetime "deleted_at"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
+    t.bigint "office_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -193,5 +212,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_08_102657) do
   add_foreign_key "questions", "assessments"
   add_foreign_key "responses", "submissions"
   add_foreign_key "submissions", "participations"
-  add_foreign_key "users", "companies"
+  add_foreign_key "users", "companies", column: "office_id"
 end
