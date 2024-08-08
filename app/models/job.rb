@@ -15,6 +15,7 @@ class Job < ApplicationRecord
   validates :deadline, presence: true
   validates :salary_range, presence: true
   validate :deadline_cannot_be_in_the_past
+  acts_as_paranoid
 
   private
 

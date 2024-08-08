@@ -19,6 +19,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { minimum: 3, maximum: 30 }
   validates :role, presence: true
   before_save :set_is_verified
+  acts_as_paranoid
 
   private
 

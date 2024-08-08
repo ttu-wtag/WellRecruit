@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.3.2'
+ruby '3.3.3'
 
 gem 'bootsnap', require: false
 gem 'cancancan'
@@ -8,6 +8,7 @@ gem 'devise'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'pagy', '~> 9.0'
+gem 'paranoia', '~> 2.4'
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 7.1.3'

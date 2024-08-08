@@ -7,6 +7,7 @@ class Application < ApplicationRecord
   has_one_attached :resume
 
   validate :correct_resume_mime_type
+  acts_as_paranoid
 
   enum status: [:applied, :selected, :rejected, :passed]
 

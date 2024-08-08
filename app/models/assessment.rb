@@ -9,6 +9,7 @@ class Assessment < ApplicationRecord
   validates :starting_time, presence: true
   validates :ending_time, presence: true
   validate :ending_time_after_starting_time
+  acts_as_paranoid
 
   private
 

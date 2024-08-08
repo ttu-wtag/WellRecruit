@@ -5,4 +5,5 @@ class Question < ApplicationRecord
 
   validates :statement, presence: true
   validates_associated :answers
+  acts_as_paranoid
 end

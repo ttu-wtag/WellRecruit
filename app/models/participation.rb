@@ -3,4 +3,5 @@ class Participation < ApplicationRecord
   belongs_to :assessment
   has_many :submissions, dependent: :destroy
   accepts_nested_attributes_for :submissions, allow_destroy: true
+  acts_as_paranoid
 end
